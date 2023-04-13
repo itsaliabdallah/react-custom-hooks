@@ -4,6 +4,7 @@ import Modal from "react-modal";
 import useGoogleBooks from "../hooks/useGoogleBooks";
 import usePublisherBooks from "../hooks/usePublisherBooks";
 import useModal from "../hooks/useModal";
+import { Link } from "react-router-dom";
 
 const customStyles = {
   content: {
@@ -17,9 +18,7 @@ const customStyles = {
   },
 };
 
-export default function BooksGrid({ query }) {
-  const [publisher, setPublisher] = useState("");
-
+export default function BooksGrid({ query, publisher, setPublisher }) {
   const { books, error, isLoading } = useGoogleBooks(query);
 
   const { pubBooks, pubError, isPubLoading } = usePublisherBooks(publisher);
@@ -47,6 +46,7 @@ export default function BooksGrid({ query }) {
                 return <li key={book.id}>{book.volumeInfo.title}</li>;
               })}
             </ul>
+            <Link to={`/publishers/${publisher}`}>click to see more....</Link>
           </div>
         )}
       </Modal>
